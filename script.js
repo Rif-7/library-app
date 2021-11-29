@@ -1,4 +1,21 @@
-let myLibrary = [];
+class Book {
+    constructor(title, author, pages, read) {
+    this.title = title
+    this.author = author
+    this.pages = pages
+    this.read = read
+    }
+
+    info() {
+        if (this.read) {
+            return `${this.title} by ${this.author}, ${this.pages} pages, finished reading`;
+        } 
+        return `${this.title} by ${this.author}, ${this.pages} pages, not read yet`;
+    }
+    
+}
+
+const myLibrary = [];
 
 function addBookToLibrary(book) {
     myLibrary.push(book);
@@ -45,26 +62,13 @@ function removeButton(e) {
 };
 
 
-function book(title, author, pages, read) {
-    this.title = title
-    this.author = author
-    this.pages = pages
-    this.read = read
-}
-
-book.prototype.info = function() {
-    if (this.read) {
-        return `${this.title} by ${this.author}, ${this.pages} pages, finished reading`;
-    } 
-    return `${this.title} by ${this.author}, ${this.pages} pages, not read yet`;
-};
 
 
 const addButton = document.querySelector(".add-btn");
 addButton.addEventListener("click", () => {
     let newBook = prompt("Title, Author, Pages, Read(y/n): ");
     newBook = newBook.split(", ");
-    newBook = new book(newBook[0], newBook[1], newBook[2], (newBook[3] === "y") ? true : false);
+    newBook = new Book(newBook[0], newBook[1], newBook[2], (newBook[3] === "y") ? true : false);
     addBookToLibrary(newBook);
     showBooks(myLibrary);
     return;
