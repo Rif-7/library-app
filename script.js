@@ -6,21 +6,31 @@ class Book {
     this.read = read
     }
 
+    static myLibrary = [];
+
     info() {
         if (this.read) {
             return `${this.title} by ${this.author}, ${this.pages} pages, finished reading`;
         } 
         return `${this.title} by ${this.author}, ${this.pages} pages, not read yet`;
     }
+
+    static getLibrary() {
+        return Book.myLibrary;
+    }
+
+    static addBookToLibrary(book) {
+        Book.myLibrary.push(book);
+        return;
+    }
+
+    static removeFromLibrary(index) {
+        Book.myLibrary.splice(index, 1);
+    }
     
 }
 
-const myLibrary = [];
 
-function addBookToLibrary(book) {
-    myLibrary.push(book);
-    return;
-}
 
 function showBooks(books) {
     const container = document.querySelector(".container");
@@ -42,7 +52,7 @@ function showBooks(books) {
             readBtn.classList.add("btn");
             readBtn.addEventListener("click", () => {
                 books[i].read = true;
-                showBooks(myLibrary);
+                showBooks(Book.getLibrary());
                 return;
             })
             buttonDiv.appendChild(readBtn);
@@ -56,9 +66,8 @@ function showBooks(books) {
 
 function removeButton(e) {
     let pos = Number(e.target.getAttribute("data-bookno"));
-    console.log(pos);
-    myLibrary.splice(pos, 1);
-    showBooks(myLibrary);
+    Book.removeFromLibrary(pos);
+    showBooks(Book.getLibrary());
 };
 
 
@@ -69,15 +78,11 @@ addButton.addEventListener("click", () => {
     let newBook = prompt("Title, Author, Pages, Read(y/n): ");
     newBook = newBook.split(", ");
     newBook = new Book(newBook[0], newBook[1], newBook[2], (newBook[3] === "y") ? true : false);
-    addBookToLibrary(newBook);
-    showBooks(myLibrary);
+    Book.addBookToLibrary(newBook);
+    showBooks(Book.getLibrary());
     return;
 });
 
 
-const removeBtns = document.querySelectorAll(".remove-btn");
-removeBtns.forEach((removeBtn) => {
-    removeBtn.addEventListener("click", removeButton)
-});
 
 
