@@ -1,3 +1,9 @@
+const title = document.getElementById("title");
+const author = document.getElementById("author");
+const pages = document.getElementById("pages");
+
+const errorField = document.querySelector(".error-field");
+
 class Book {
   constructor(title, author, pages, read) {
     this.title = title;
@@ -75,14 +81,33 @@ addButton.addEventListener("click", () => {
 
 const saveButton = document.querySelector(".save-btn");
 saveButton.addEventListener("click", () => {
-  document.querySelector("new-book-form").display = "none";
-  const title = document.getElementById("title").value;
-  const author = document.getElementById("author").value;
-  const pages = document.getElementById("pages").value;
-  let read = document.querySelector('input[name="read"]:checked').value;
+  let read = document.querySelector('input[name="read"]:checked');
 
-  read = read === "yes" ? true : false;
-  newBook = new Book(title, author, pages, read);
+  const form = document.querySelector("form");
+  if (!form.checkValidity()) {
+    errorField.style.display = "block";
+
+    if (!title.checkValidity()) {
+      errorField.textContent = "Title is not valid";
+    } else if (!author.checkValidity()) {
+      errorField.textContent = "Author is not valid";
+    } else if (!pages.checkValidity()) {
+      errorField.textContent = "Pages should be greater than or equal to zero";
+    } else if (!read) {
+      errorField.textContent = "Select option for read";
+    }
+
+    return;
+  }
+
+  read = read.value === "yes" ? true : false;
+  newBook = new Book(title.value, author.value, pages.value, read);
+
+  form.reset();
+
   Book.addBookToLibrary(newBook);
   showBooks(Book.getLibrary());
+  document.querySelector(".new-book-form").style.display = "none";
+  errorField.textContent = "";
+  errorField.style.display = "none";
 });
