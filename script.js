@@ -1,3 +1,4 @@
+const formDiv = document.querySelector(".new-book-form");
 const title = document.getElementById("title");
 const author = document.getElementById("author");
 const pages = document.getElementById("pages");
@@ -53,6 +54,7 @@ function showBooks(books) {
       let readBtn = document.createElement("button");
       readBtn.textContent = "Mark as Read";
       readBtn.classList.add("btn");
+      readBtn.style.marginRight = "3px";
       readBtn.addEventListener("click", () => {
         books[i].read = true;
         showBooks(Book.getLibrary());
@@ -75,7 +77,7 @@ function removeButton(e) {
 
 const addButton = document.querySelector(".add-btn");
 addButton.addEventListener("click", () => {
-  document.querySelector(".new-book-form").style.display = "block";
+  formDiv.style.display = "block";
   return;
 });
 
@@ -107,7 +109,10 @@ saveButton.addEventListener("click", () => {
 
   Book.addBookToLibrary(newBook);
   showBooks(Book.getLibrary());
-  document.querySelector(".new-book-form").style.display = "none";
+  formDiv.style.display = "none";
   errorField.textContent = "";
   errorField.style.display = "none";
 });
+
+const cancelButton = document.querySelector(".cancel-btn");
+cancelButton.addEventListener("click", () => (formDiv.style.display = "none"));
