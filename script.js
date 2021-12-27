@@ -1,4 +1,5 @@
 const formDiv = document.querySelector(".new-book-form");
+const form = document.querySelector("form");
 const title = document.getElementById("title");
 const author = document.getElementById("author");
 const pages = document.getElementById("pages");
@@ -85,7 +86,6 @@ const saveButton = document.querySelector(".save-btn");
 saveButton.addEventListener("click", () => {
   let read = document.querySelector('input[name="read"]:checked');
 
-  const form = document.querySelector("form");
   if (!form.checkValidity()) {
     errorField.style.display = "block";
 
@@ -115,4 +115,9 @@ saveButton.addEventListener("click", () => {
 });
 
 const cancelButton = document.querySelector(".cancel-btn");
-cancelButton.addEventListener("click", () => (formDiv.style.display = "none"));
+cancelButton.addEventListener("click", () => {
+  formDiv.style.display = "none";
+  errorField.textContent = "";
+  errorField.style.display = "none";
+  form.reset();
+});
