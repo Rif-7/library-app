@@ -8,7 +8,9 @@
 }
 
 .new-book-form {
+    margin: auto;
     display: none;
+    text-align: center;
 }
 
 .btn {
@@ -16,10 +18,12 @@
 }
 
 button {
+    font-family: monospace;
     background-color: black;
     color: white;
     border: 0px;
     border-radius: 15px;
     font-size: 24px;
-    margin: 0px 5px;
+    padding: 3px 8px;
+    margin: 10px auto;
 }
