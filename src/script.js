@@ -1,10 +1,22 @@
+import "./style.css";
+import { initializeApp } from "firebase/app";
+
 const formDiv = document.querySelector(".new-book-form");
 const form = document.querySelector("form");
 const title = document.getElementById("title");
 const author = document.getElementById("author");
 const pages = document.getElementById("pages");
 
-import "./style.css";
+const firebaseConfig = {
+  apiKey: "AIzaSyBSGNI26VkBJiWB-mGGtiMFrND0YnlXsBQ",
+  authDomain: "library-app-0-ad9ab.firebaseapp.com",
+  projectId: "library-app-0-ad9ab",
+  storageBucket: "library-app-0-ad9ab.appspot.com",
+  messagingSenderId: "452662649731",
+  appId: "1:452662649731:web:32b22796267752fa22ccb6",
+};
+
+const app = initializeApp(firebaseConfig);
 
 const errorField = document.querySelector(".error-field");
 
